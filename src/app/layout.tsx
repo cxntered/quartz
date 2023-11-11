@@ -12,14 +12,15 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
 	title: "Quartz",
 	description: "A link shortener for the modern web",
+	metadataBase: new URL("https://q.cxntered.dev"),
 	openGraph: {
 		title: "Quartz",
 		description: "A link shortener for the modern web",
-		url: "https://q.cxntered.dev/",
+		url: "/",
 		siteName: "q.cxntered.dev",
 		images: [
 			{
-				url: "https://cxntered.me/assets/Quartz.png"
+				url: "/assets/Quartz.png"
 			}
 		],
 		locale: "en_US",
