@@ -107,7 +107,7 @@ export default function Home() {
 												/>
 											</FormControl>
 											<FormDescription>
-												The ID for the shortened link
+												The ID for the shortened link (optional)
 											</FormDescription>
 											<FormMessage />
 										</FormItem>
