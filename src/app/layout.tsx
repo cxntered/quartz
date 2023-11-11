@@ -10,7 +10,10 @@ import "./styles/globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-	title: "Quartz",
+	title: {
+		default: "Quartz",
+		template: "Quartz | %s"
+	},
 	description: "A link shortener for the modern web",
 	metadataBase: new URL("https://q.cxntered.dev"),
 	openGraph: {
