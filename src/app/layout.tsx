@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { ThemeProvider } from "@/components/theme-provider"
-import { ThemeToggle } from "@/components/theme-toggle"
-import { Footer } from "@/components/footer"
+import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { Footer } from "@/components/footer";
 import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 import "./styles/globals.css";
@@ -29,11 +29,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en">
-			<body className={cn(
-				"bg-white dark:bg-zinc-950 antialiased",
-				inter.className
-			)}>
-				<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+			<body className={cn("bg-white dark:bg-zinc-950 antialiased", inter.className)}>
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="system"
+					enableSystem
+					disableTransitionOnChange
+				>
 					<ThemeToggle />
 					{children}
 					<Footer />

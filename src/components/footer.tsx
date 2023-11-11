@@ -13,11 +13,14 @@ export function Footer() {
 				</span>
 				. Source code is available on{" "}
 				<span className="inline-block align-top">
-					<Link href="https://github.com/cxntered/quartz" className="underline underline-offset-4 flex items-center">
+					<Link
+						href="https://github.com/cxntered/quartz"
+						className="underline underline-offset-4 flex items-center"
+					>
 						<Github className="h-4 w-4 mr-0.5" /> GitHub
 					</Link>
 				</span>
 			</p>
 		</footer>
-	)
+	);
 }
