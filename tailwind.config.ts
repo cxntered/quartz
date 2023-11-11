@@ -34,6 +34,9 @@ module.exports = {
 			},
 			fontFamily: {
 				sans: ["var(--font-sans)", ...fontFamily.sans]
+			},
+			height: {
+				screen: ["100vh", "100dvh"] // 100vh is a fallback for browsers that do not support 100dvh
 			}
 		}
 	},
