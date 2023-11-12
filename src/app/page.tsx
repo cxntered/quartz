@@ -19,6 +19,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import Image from "next/image";
 
 export default function Home() {
 	const { toast } = useToast();
@@ -69,7 +70,17 @@ export default function Home() {
 			<div className="flex items-center justify-center h-screen">
 				<Card className="w-[32rem] m-12">
 					<CardHeader>
-						<CardTitle>Quartz</CardTitle>
+						<CardTitle className="flex flex-row items-center">
+							<Image
+								src="/assets/Quartz.png"
+								alt="Quartz Logo"
+								width="32"
+								height="32"
+								className="mr-1"
+								unoptimized
+							/>
+							Quartz
+						</CardTitle>
 						<CardDescription>A link shortener for the modern web</CardDescription>
 					</CardHeader>
 					<CardContent>
