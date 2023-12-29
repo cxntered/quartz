@@ -23,7 +23,7 @@ import Image from "next/image";
 export default function Home() {
 	const formSchema = z.object({
 		link: z.string().url({ message: "Please enter a valid URL" }),
-		id: z.string().toLowerCase().optional()
+		id: z.string().toLowerCase().trim().regex(/^[a-zA-Z0-9]*$/, { message: "Please enter an alphanumeric string" }).optional()
 	});
 
 	const form = useForm<z.infer<typeof formSchema>>({
