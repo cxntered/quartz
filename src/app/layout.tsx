@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "@/components/ui/sonner";
 import { Footer } from "@/components/footer";
 import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
@@ -43,7 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 				>
 					<ThemeToggle />
 					{children}
-					<Toaster />
+					<Toaster richColors />
 					<Footer />
 				</ThemeProvider>
 			</body>

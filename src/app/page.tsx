@@ -12,18 +12,15 @@ import {
 	FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { ToastAction } from "@/components/ui/toast";
-import { useToast } from "@/components/ui/use-toast";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+import { toast } from "sonner";
+import copy from "copy-to-clipboard";
 import Image from "next/image";
 
 export default function Home() {
-	const { toast } = useToast();
-
 	const formSchema = z.object({
 		link: z.string().url({ message: "Please enter a valid URL" }),
 		id: z.string().toLowerCase().optional()
@@ -47,21 +44,17 @@ export default function Home() {
 		}).then((res) => res.json());
 
 		if (res.ok) {
-			toast({
-				title: "Success!",
+			toast.success("Success!", {
 				description: "Your link has been shortened.",
-				action: (
-					<CopyToClipboard text={`${window.location.origin}/${res.id}`}>
-						<ToastAction altText="Copy link">Copy link</ToastAction>
-					</CopyToClipboard>
-				)
+				action: {
+					label: "Copy link",
+					onClick: () => copy(`${window.location.origin}/${res.id}`)
+				}
 			});
 		} else {
-			toast({
-				title: "Something went wrong!",
-				description: res.message ?? "An unknown error occurred!",
-				variant: "destructive"
-			});
+			toast.error("Something went wrong!", {
+				description: res.message ?? "An unknown error occurred!"
+			})
 		}
 	};
 
