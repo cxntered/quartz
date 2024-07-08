@@ -19,6 +19,7 @@ import { z } from "zod";
 import { toast } from "sonner";
 import copy from "copy-to-clipboard";
 import Image from "next/image";
+import quartzLogo from "public/assets/Quartz.webp";
 
 export default function Home() {
 	const formSchema = z.object({
@@ -65,12 +66,13 @@ export default function Home() {
 					<CardHeader>
 						<CardTitle className="flex flex-row items-center">
 							<Image
-								src="/assets/Quartz.png"
+								className="[image-rendering:pixelated;] mr-1"
+								src={quartzLogo}
 								alt="Quartz Logo"
 								width="32"
 								height="32"
-								className="mr-1"
 								unoptimized
+								priority={true}
 							/>
 							Quartz
 						</CardTitle>
