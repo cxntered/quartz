@@ -50,7 +50,8 @@ export default function Home() {
 				action: {
 					label: "Copy link",
 					onClick: () => copy(`${window.location.origin}/${res.id}`)
-				}
+				},
+				duration: Infinity
 			});
 		} else {
 			toast.error("Something went wrong!", {
