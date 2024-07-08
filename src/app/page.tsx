@@ -23,8 +23,8 @@ import quartzLogo from "public/assets/Quartz.webp";
 
 export default function Home() {
 	const formSchema = z.object({
-		link: z.string().url({ message: "Please enter a valid URL" }),
-		id: z.string().toLowerCase().trim().regex(/^[a-zA-Z0-9]*$/, { message: "Please enter an alphanumeric string" }).optional()
+		link: z.string().url({ message: "Enter a valid URL" }),
+		id: z.string().toLowerCase().trim().regex(/^[a-zA-Z0-9]*$/, { message: "Enter an alphanumeric ID" }).optional()
 	});
 
 	const form = useForm<z.infer<typeof formSchema>>({
