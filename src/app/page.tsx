@@ -36,6 +36,8 @@ export default function Home() {
 	});
 
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
+		const toastId = toast.loading("Shortening...", { duration: Infinity });
+
 		const res = await fetch("api/create", {
 			method: "POST",
 			body: JSON.stringify(values),
@@ -44,6 +46,7 @@ export default function Home() {
 			}
 		}).then((res) => res.json());
 
+		toast.dismiss(toastId);
 		if (res.ok) {
 			toast.success("Success!", {
 				description: "Your link has been shortened.",
