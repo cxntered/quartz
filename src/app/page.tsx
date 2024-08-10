@@ -12,16 +12,30 @@ import {
 	FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogHeader,
+	DialogTitle,
+} from "@/components/ui/dialog"
+import { Label } from "@/components/ui/label";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "sonner";
-import copy from "copy-to-clipboard";
 import Image from "next/image";
 import quartzLogo from "public/assets/Quartz.webp";
+import { useState } from "react";
+import { Check, Copy, Loader2 } from "lucide-react";
 
 export default function Home() {
+	const [loading, setLoading] = useState(false);
+	const [open, setOpen] = useState(false);
+	const [link, setLink] = useState("");
+	const [copied, setCopied] = useState(false);
+
 	const formSchema = z.object({
 		link: z.string().url({ message: "Enter a valid URL" }),
 		id: z.string().toLowerCase().trim().regex(/^[a-zA-Z0-9]*$/, { message: "Enter an alphanumeric ID" }).optional()
@@ -36,8 +50,7 @@ export default function Home() {
 	});
 
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
-		const toastId = toast.loading("Shortening...", { duration: Infinity });
-
+		setLoading(true);
 		const res = await fetch("api/create", {
 			method: "POST",
 			body: JSON.stringify(values),
@@ -45,22 +58,22 @@ export default function Home() {
 				"Content-Type": "application/json"
 			}
 		}).then((res) => res.json());
+		setLoading(false);
 
-		toast.dismiss(toastId);
 		if (res.ok) {
-			toast.success("Success!", {
-				description: "Your link has been shortened.",
-				action: {
-					label: "Copy link",
-					onClick: () => copy(`${window.location.origin}/${res.id}`)
-				},
-				duration: Infinity
-			});
+			setLink(`${window.location.origin}/${res.id}`);
+			setOpen(true);
 		} else {
 			toast.error("Something went wrong!", {
 				description: res.message ?? "An unknown error occurred!"
 			})
 		}
+	};
+
+	const handleCopy = () => {
+		navigator.clipboard.writeText(link);
+		setCopied(true);
+		setTimeout(() => setCopied(false), 2000);
 	};
 
 	return (
@@ -123,7 +136,40 @@ export default function Home() {
 										</FormItem>
 									)}
 								/>
-								<Button type="submit">Shorten</Button>
+								{loading ? (
+									<Button disabled type="submit">
+										<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+										Shortening...
+									</Button>
+								) : (
+									<Button type="submit">Shorten</Button>
+								)}
+								<Dialog open={open} onOpenChange={setOpen}>
+									<DialogContent>
+										<DialogHeader>
+											<DialogTitle>Shortened link</DialogTitle>
+											<DialogDescription>
+												Success! Your link has been shortened.
+											</DialogDescription>
+										</DialogHeader>
+										<div className="flex items-center space-x-2">
+											<div className="grid flex-1 gap-2">
+												<Label htmlFor="link" className="sr-only">
+													Link
+												</Label>
+												<Input
+													id="link"
+													defaultValue={link}
+													readOnly
+												/>
+											</div>
+											<Button onClick={handleCopy} type="submit" size="sm" className="px-3">
+												<span className="sr-only">Copy</span>
+												{copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+											</Button>
+										</div>
+									</DialogContent>
+								</Dialog>
 							</form>
 						</Form>
 					</CardContent>
