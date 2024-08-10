@@ -79,7 +79,7 @@ export default function Home() {
 	return (
 		<main className="relative">
 			<div className="flex items-center justify-center h-screen">
-				<Card className="w-[32rem] m-12">
+				<Card className="w-[32rem] m-4">
 					<CardHeader>
 						<CardTitle className="flex flex-row items-center">
 							<Image
@@ -145,7 +145,7 @@ export default function Home() {
 									<Button type="submit">Shorten</Button>
 								)}
 								<Dialog open={open} onOpenChange={setOpen}>
-									<DialogContent>
+									<DialogContent className="w-11/12 sm:max-w-lg">
 										<DialogHeader>
 											<DialogTitle>Shortened link</DialogTitle>
 											<DialogDescription>
