@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
 	Form,
 	FormControl,
@@ -79,9 +78,9 @@ export default function Home() {
 	return (
 		<main className="relative">
 			<div className="flex items-center justify-center h-screen">
-				<Card className="w-[32rem] m-4">
-					<CardHeader>
-						<CardTitle className="flex flex-row items-center">
+				<div className="w-[32rem] m-4">
+					<div className="flex flex-col space-y-1.5 p-6 items-center">
+						<h3 className="text-2xl font-semibold leading-none tracking-tight flex flex-row items-center">
 							<Image
 								className="[image-rendering:pixelated;] mr-1"
 								src={quartzLogo}
@@ -92,10 +91,10 @@ export default function Home() {
 								priority={true}
 							/>
 							Quartz
-						</CardTitle>
-						<CardDescription>A link shortener for the modern web</CardDescription>
-					</CardHeader>
-					<CardContent>
+						</h3>
+						<p className="text-sm text-zinc-500 dark:text-zinc-400">A link shortener for the modern web</p>
+					</div>
+					<div className="p-6 pt-0">
 						<Form {...form}>
 							<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
 								<FormField
@@ -172,8 +171,8 @@ export default function Home() {
 								</Dialog>
 							</form>
 						</Form>
-					</CardContent>
-				</Card>
+					</div>
+				</div>
 			</div>
 		</main>
 	);
