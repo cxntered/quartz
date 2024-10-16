@@ -25,7 +25,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "sonner";
 import Image from "next/image";
-import quartzLogo from "public/assets/Quartz.webp";
+import quartzLogo from "../../public/assets/Quartz.webp";
 import { useState } from "react";
 import { Check, Copy, Loader2 } from "lucide-react";
 
