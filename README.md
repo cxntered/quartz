@@ -11,7 +11,9 @@ A link shortener built with Next.js & Prisma
 ### Requirements
 
 - [`Node.js`](https://nodejs.org/en/): For running the website (`v18 or higher`)
-- [`Yarn`](https://yarnpkg.com/): For installing dependencies (`npm i -g yarn`)
+- [`Yarn`](https://yarnpkg.com/): For installing dependencies (`corepack enable`)
+- [`PostgreSQL`](https://www.postgresql.org/): For storing shortened links
+- [`Redis`](https://redis.io/): For rate limiting
 
 ### Running
 
@@ -19,8 +21,9 @@ A link shortener built with Next.js & Prisma
 # Install dependencies
 $ yarn install
 
-# Run the development server
-$ yarn dev
+# Rename .env.example to .env and fill in the values
+$ mv .env.example .env
+$ code .env
 
 # Build the website
 $ yarn build
@@ -32,6 +35,9 @@ $ yarn start
 ### Other Commands
 
 ```bash
+# Run the development server
+$ yarn dev
+
 # Lint the code
 $ yarn lint
 
