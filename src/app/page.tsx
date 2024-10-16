@@ -37,14 +37,16 @@ export default function Home() {
 
 	const formSchema = z.object({
 		link: z.string().url({ message: "Enter a valid URL" }),
-		id: z.string().toLowerCase().trim().regex(/^[a-zA-Z0-9]*$/, { message: "Enter an alphanumeric ID" }).optional()
+		id: z.string().toLowerCase().trim().regex(/^[a-zA-Z0-9]*$/, { message: "Enter an alphanumeric ID" }).optional(),
+		...(process.env.SECRET ? { secret: z.string().min(1, { message: "Secret is required" }) } : {})
 	});
 
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			link: "",
-			id: ""
+			id: "",
+			...(process.env.SECRET ? { secret: "" } : {})
 		}
 	});
 
@@ -135,6 +137,30 @@ export default function Home() {
 										</FormItem>
 									)}
 								/>
+								{process.env.SECRET && (
+									<FormField
+										control={form.control}
+										name="secret"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Secret</FormLabel>
+												<FormControl>
+													<Input
+														placeholder="secret"
+														autoComplete="off"
+														{...field}
+														value={field.value as string}
+														type="password"
+													/>
+												</FormControl>
+												<FormDescription>
+													The secret to shorten the link
+												</FormDescription>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								)}
 								{loading ? (
 									<Button disabled type="submit">
 										<Loader2 className="mr-2 h-4 w-4 animate-spin" />

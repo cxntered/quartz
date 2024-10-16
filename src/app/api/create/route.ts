@@ -21,6 +21,10 @@ export async function POST(request: NextRequest) {
 	const req = await request.json();
 	const query = await prisma.link.findUnique({ where: { id: req.id } });
 
+	if (process.env.SECRET && req.secret !== process.env.SECRET) {
+		return NextResponse.json({ message: "Invalid secret!", ok: false }, { status: 401 });
+	}
+
 	try {
 		if (query == null) {
 			const id: string = req.id || (await generateRandomName());
