@@ -52,5 +52,6 @@
 	},
 	"prisma": {
 		"schema": "./src/prisma/schema.prisma"
-	}
+	},
+	"packageManager": "yarn@4.5.0"
 }
