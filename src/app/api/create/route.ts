@@ -1,6 +1,13 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { customAlphabet } from "nanoid/non-secure";
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
 import prisma from "@/prisma/db";
+
+const ratelimit = new Ratelimit({
+	redis: Redis.fromEnv(),
+	limiter: Ratelimit.slidingWindow(1, "60 s")
+});
 
 const generateRandomName = async (): Promise<string> => {
 	const alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -19,11 +26,28 @@ const generateRandomName = async (): Promise<string> => {
 
 export async function POST(request: NextRequest) {
 	const req = await request.json();
-	const query = await prisma.link.findUnique({ where: { id: req.id } });
+
+	const ip = req.ip ?? "127.0.0.1";
+	const { success, pending, limit, reset, remaining } = await ratelimit.limit(ip);
+	if (!success) {
+		return NextResponse.json(
+			{
+				message: "Rate limit exceeded! Try again in a few minutes.",
+				ok: false,
+				limit,
+				remaining,
+				reset,
+				pending
+			},
+			{ status: 429 }
+		);
+	}
 
 	if (process.env.SECRET && req.secret !== process.env.SECRET) {
 		return NextResponse.json({ message: "Invalid secret!", ok: false }, { status: 401 });
 	}
+
+	const query = await prisma.link.findUnique({ where: { id: req.id } });
 
 	try {
 		if (query == null) {
