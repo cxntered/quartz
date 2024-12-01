@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.kawaii-visible {
+	display: none;
+}
+
+.kawaii-visible-block {
+	display: none;
+}
+.kawaii-hidden {
+	display: flex;
+}
+
+.kawaii .kawaii-visible {
+	display: flex;
+}
+
+.kawaii .kawaii-visible-block {
+	display: block;
+}
+
+.kawaii .kawaii-hidden {
+	display: none;
+}

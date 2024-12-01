@@ -26,6 +26,7 @@ import { z } from "zod";
 import { toast } from "sonner";
 import Image from "next/image";
 import quartzLogo from "../../public/assets/Quartz.webp";
+import kawaiiLogo from "../../public/assets/Kawaii.webp";
 import { useState } from "react";
 import { Check, Copy, Loader2 } from "lucide-react";
 
@@ -82,7 +83,16 @@ export default function Home() {
 			<div className="flex items-center justify-center h-screen">
 				<div className="w-[32rem] m-4">
 					<div className="flex flex-col space-y-1.5 p-6 items-center">
-						<h3 className="text-2xl font-semibold leading-none tracking-tight flex flex-row items-center">
+						<Image
+							className="kawaii-visible w-64"
+							src={kawaiiLogo}
+							alt="Quartz Kawaii Logo. uwu!~"
+							width="2605"
+							height="995"
+							priority={true}
+							loading="eager"
+						/>
+						<h3 className="kawaii-hidden text-2xl font-semibold leading-none tracking-tight flex flex-row items-center">
 							<Image
 								className="[image-rendering:pixelated;] mr-1"
 								src={quartzLogo}

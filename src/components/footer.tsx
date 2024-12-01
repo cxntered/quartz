@@ -1,4 +1,5 @@
 import { Github } from "lucide-react";
+import { KawaiiToggle } from './kawaii-toggle';
 import Link from "next/link";
 
 export function Footer() {
@@ -20,6 +21,7 @@ export function Footer() {
 						<Github className="h-4 w-4 mr-0.5" /> GitHub
 					</Link>
 				</span>
+				<KawaiiToggle />
 			</p>
 		</footer>
 	);
